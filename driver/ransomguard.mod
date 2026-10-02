@@ -1,0 +1,1 @@
+./ransomguard.o
