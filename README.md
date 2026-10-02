@@ -140,6 +140,8 @@ Project documentation is available in the docs directory:
 
 - Stage1_Project_Introduction.md
 - Stage2_Project_Requirements.md
+- Stage3_System_Design.md
+- Stage4_Initial_Implementation.md
 - Stage5_Testing.md
 - Stage6_Final_Implementation.md
 
