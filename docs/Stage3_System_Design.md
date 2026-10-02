@@ -134,4 +134,86 @@ The architecture supports modular development, independent testing of components
 The design also provides a foundation for future extensions such as multiple canary files, configurable monitoring paths and enhanced kernel-level event handling.
 
 
+## 10. UML Class Diagram
 
+The main classes of the userspace monitoring application are represented below.
+
+```mermaid
+classDiagram
+    class CanaryManager {
+        -string canaryPath
+        +createCanary() bool
+    }
+
+    class FileSystemMonitor {
+        -string filePath
+        -EventProcessor processor
+        +start() void
+    }
+
+    class IntegrityManager {
+        -string filePath
+        -string baselineHash
+        +createBaseline() bool
+        +verifyIntegrity() bool
+    }
+
+    class EventProcessor {
+        -IntegrityManager integrity
+        -AlertManager alerts
+        +processModification() void
+        +processDeletion() void
+        +processMove() void
+    }
+
+    class AlertManager {
+        -EventLogger logger
+        +reportModification() void
+        +reportIntegrityViolation() void
+        +reportDeletion() void
+        +reportMove() void
+    }
+
+    class EventLogger {
+        -string logPath
+        +log(string message) void
+    }
+
+    CanaryManager --> FileSystemMonitor : provides canary path
+    FileSystemMonitor --> EventProcessor : sends events
+    EventProcessor --> IntegrityManager : verifies integrity
+    EventProcessor --> AlertManager : generates alerts
+    AlertManager --> EventLogger : records events
+
+```mermaid
+sequenceDiagram
+    participant CF as Canary File
+    participant FM as FileSystemMonitor
+    participant EP as EventProcessor
+    participant IM as IntegrityManager
+    participant AM as AlertManager
+    participant DR as Kernel Driver
+
+    CF->>FM: File modified
+    FM->>EP: Modification event
+    EP->>AM: Report modification
+    AM->>DR: CANARY_MODIFIED
+    EP->>IM: Verify SHA-256
+    IM-->>EP: Integrity mismatch
+    EP->>AM: Report integrity violation
+    AM->>DR: INTEGRITY_VIOLATION
+```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Initialize
+    Initialize --> BaselineCreated
+    BaselineCreated --> Monitoring
+    Monitoring --> EventDetected
+    EventDetected --> IntegrityCheck
+    IntegrityCheck --> Monitoring: Integrity valid
+    IntegrityCheck --> AlertGenerated: Integrity violation
+    EventDetected --> AlertGenerated: Delete or Move
+    AlertGenerated --> Monitoring
+    Monitoring --> [*]: Application stopped
+```
