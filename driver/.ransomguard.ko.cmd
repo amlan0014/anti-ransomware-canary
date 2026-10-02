@@ -1,1 +1,0 @@
-savedcmd_ransomguard.ko := ld -r -m elf_x86_64 -z noexecstack --no-warn-rwx-segments --build-id=sha1  -T /home/amlan/wsl-kernel/scripts/module.lds -o ransomguard.ko ransomguard.o ransomguard.mod.o .module-common.o
