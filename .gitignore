@@ -19,3 +19,4 @@ build/
 
 # VS Code settings
 .vscode/
+driver/modules.order
