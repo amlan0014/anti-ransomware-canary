@@ -1,0 +1,14 @@
+# Compiled executable
+anti_ransomware
+
+# Object files
+*.o
+
+# Runtime-generated files
+runtime/
+
+# Build artifacts
+build/
+
+# VS Code settings
+.vscode/
