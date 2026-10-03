@@ -17,8 +17,14 @@ void EventLogger::log(const std::string& message) {
         return;
     }
 
-    std::time_t currentTime = std::time(nullptr);
+std::time_t currentTime = std::time(nullptr);
+std::string timestamp = std::ctime(&currentTime);
 
-    logFile << "[" << std::ctime(&currentTime) << "] "
-            << message << "\n";
+if (!timestamp.empty() && timestamp.back() == '\n') {
+    timestamp.pop_back();
 }
+
+logFile << "[" << timestamp << "] "
+        << message << "\n";
+}
+	
