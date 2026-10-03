@@ -188,3 +188,24 @@ The final implementation successfully integrates the C++ userspace anti-ransomwa
 The prototype demonstrates canary-file monitoring, SHA-256 integrity verification, security event detection, event logging and userspace-to-kernel communication.
 
 The project provides a working foundation for further development of host-based ransomware detection and response mechanisms.
+
+
+## Demo
+
+### 1. Application Detection
+
+The monitor detects modification of the protected canary file and verifies its integrity using SHA-256.
+
+![Application Detection](docs/screenshots/01_application_detection.png)
+
+### 2. Kernel Driver Events
+
+The kernel character driver receives the security events from the userspace monitor.
+
+![Kernel Driver Events](docs/screenshots/02_kernel_driver_events.png)
+
+### 3. GitHub Repository
+
+Project source code and documentation are maintained in the GitHub repository.
+
+![GitHub Repository](docs/screenshots/03_github_repository.png)
