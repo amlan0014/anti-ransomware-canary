@@ -70,7 +70,7 @@ The kernel driver is built against the configured Linux kernel source tree.
 ### 2. Build the kernel driver
 
     cd driver
-    make
+    make KERNEL_DIR=/path/to/kernel-source
     cd ..
 
 ### 3. Load the kernel driver
