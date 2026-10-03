@@ -114,6 +114,10 @@ Check application logs with:
 
     cat runtime/events.log
 
+Run the functional test script with the driver loaded and the application built:
+
+    ./test.sh
+
 ## Kernel Driver Testing
 
 Send a test event directly to the driver:
@@ -180,7 +184,6 @@ The system combines C++ userspace monitoring, Linux filesystem event monitoring,
 - Improve driver access control.
 - Add more detailed kernel-level event handling.
 - Improve event reporting and visualization.
-- Add automated testing scripts.
 - Add stronger incident response and recovery mechanisms.
 
 ## Conclusion
