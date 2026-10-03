@@ -5,7 +5,9 @@ driver/*.cmd
 driver/*.mod
 driver/*.mod.c
 driver/Module.symvers
-driver/modules.order# Compiled executable
+driver/modules.order
+
+# Compiled executable
 anti_ransomware
 
 # Object files
@@ -19,7 +21,6 @@ build/
 
 # VS Code settings
 .vscode/
-driver/modules.order
 
 # Kernel build artifacts generated in project root
 .Module.symvers.cmd
