@@ -32,6 +32,9 @@ run_test() {
     rm -f "$CANARY" runtime/canary_moved.txt
 
     stdbuf -oL "$APP" > /tmp/anti_ransomware_test.log 2>&1 &
+    LOG_LINES=$(wc -l < "$LOG")
+
+    stdbuf -oL "$APP" > /tmp/anti_ransomware_test.log 2>&1 &
     APP_PID=$!
 
     sleep 2
@@ -40,17 +43,19 @@ run_test() {
 
     sleep 2
 
-    if grep -q "$EXPECTED_OUTPUT" /tmp/anti_ransomware_test.log &&
-       grep -q "$EXPECTED_LOG" "$LOG"; then
-        echo "PASS: $TEST_NAME"
-        PASS=$((PASS + 1))
-    else
-        echo "FAIL: $TEST_NAME"
-        echo "--- Application output ---"
-        cat /tmp/anti_ransomware_test.log
-        echo "--- Recent event log ---"
-        tail -n 5 "$LOG"
-        FAIL=$((FAIL + 1))
+    NEW_LOG=$(tail -n +"$((LOG_LINES + 1))" "$LOG")
+
+   xif grep -q "$EXPECTED_OUTPUT" /tmp/anti_ransomware_test.log &&
+   echo "$NEW_LOG" | grep -q "$EXPECTED_LOG"; then
+    echo "PASS: $TEST_NAME"
+    PASS=$((PASS + 1))
+   else
+    echo "FAIL: $TEST_NAME"
+    echo "--- Application output ---"
+    cat /tmp/anti_ransomware_test.log
+    echo "--- Recent event log ---"
+    tail -n 5 "$LOG"
+    FAIL=$((FAIL + 1))
     fi
 
     cleanup
