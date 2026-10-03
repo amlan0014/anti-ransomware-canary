@@ -31,7 +31,7 @@ run_test() {
 
     rm -f "$CANARY" runtime/canary_moved.txt
 
-    "$APP" > /tmp/anti_ransomware_test.log 2>&1 &
+    stdbuf -oL "$APP" > /tmp/anti_ransomware_test.log 2>&1 &
     APP_PID=$!
 
     sleep 2
