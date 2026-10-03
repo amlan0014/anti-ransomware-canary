@@ -167,8 +167,10 @@ The system combines C++ userspace monitoring, Linux filesystem event monitoring,
 ## Limitations
 
 - The current prototype focuses on a designated canary file.
+- If the canary file is moved or deleted, the current monitor reports the event and stops monitoring that original file path.
 - The kernel driver primarily provides event reception and logging.
-- The prototype requires appropriate permissions for access to the character device.
+- The userspace application requires access to `/dev/ransomguard`; appropriate device permissions may be required for the intended user.
+- The kernel driver is manually loaded during the current prototype workflow.
 - Additional hardening and testing would be required for production deployment.
 
 ## Future Improvements
